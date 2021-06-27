@@ -1,7 +1,7 @@
 import React from 'react'
 import style from './app.module.css';
 import TodoInput from './components/Input/index'
-import TodoItems, {todoItem} from './components/TodoItem/items'
+import TodoItems, {todoItem} from './components/items'
 
 interface Props {
 }
