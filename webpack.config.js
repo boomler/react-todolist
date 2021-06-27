@@ -1,14 +1,8 @@
-// Generated using webpack-cli https://github.com/webpack/webpack-cli
-
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 const isProduction = process.env.NODE_ENV === 'production';
-
-const stylesHandler = isProduction
-  ? MiniCssExtractPlugin.loader
-  : 'style-loader';
 
 const config = {
   entry: './src/index.tsx',
@@ -23,9 +17,6 @@ const config = {
     new HtmlWebpackPlugin({
       template: 'public/index.html',
     }),
-
-    // Add your plugins here
-    // Learn more about plugins from https://webpack.js.org/configuration/plugins/
   ],
   module: {
     rules: [
@@ -39,16 +30,25 @@ const config = {
         exclude: ['/node_modules/'],
       },
       {
-        test: /\.css$/i,
-        use: ['typings-for-css-modules-loader?modules'],
+        test: /\.css$/,
+        use: [
+          {
+            loader: 'style-loader'
+          },
+          {
+            loader: 'css-loader',
+            options: {
+              modules: {
+                localIdentName: '[path][name]__[local]--[hash:base64:5]'
+              }
+            }
+          }
+        ]
       },
       {
         test: /\.(eot|svg|ttf|woff|woff2|png|jpg|gif)$/i,
         type: 'asset',
       },
-
-      // Add your rules for custom modules here
-      // Learn more about loaders from https://webpack.js.org/loaders/
     ],
   },
   resolve: {

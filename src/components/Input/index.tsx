@@ -1,5 +1,5 @@
 import React, {ChangeEvent, KeyboardEvent} from 'react'
-import style from './index.css'
+import style from './index.module.css'
 interface Props {
   addItem: (x:string) => void
 }

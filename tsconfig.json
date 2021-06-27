@@ -8,7 +8,12 @@
     "target": "es5",
     "jsx": "react",
     "allowJs": true,
-    "typeRoots": ["./node_modules/@types/", "types.d.ts"]
+    "typeRoots": ["./node_modules/@types/", "./typings"]
   },
-  "files": ["src/index.tsx"]
+  "files": ["src/index.tsx"],
+  /* 编译范围 */
+  "include": [
+    "./src/**/*",
+    "./typings/**/*"
+  ]
 }
