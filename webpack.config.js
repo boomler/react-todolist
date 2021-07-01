@@ -33,17 +33,17 @@ const config = {
         test: /\.css$/,
         use: [
           {
-            loader: 'style-loader'
+            loader: 'style-loader',
           },
           {
             loader: 'css-loader',
             options: {
               modules: {
-                localIdentName: '[path][name]__[local]--[hash:base64:5]'
-              }
-            }
-          }
-        ]
+                localIdentName: '[path][name]__[local]--[hash:base64:5]',
+              },
+            },
+          },
+        ],
       },
       {
         test: /\.(eot|svg|ttf|woff|woff2|png|jpg|gif)$/i,

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import style from './app.module.css';
 import TodoInput from './components/Input/index'
 import TodoItems, {todoItem} from './components/items'
@@ -7,40 +7,47 @@ interface Props {
 }
 
 interface State {
-  items: todoItem[]
+  items: todoItem[],
+  currentTime: number,
 }
 
-export default class TodoList extends React.Component<Props, State> {
-  constructor(props: Props) {
-    super(props);
-    this.state = {
-      items: []
-    }
-  }
+export default  () => {
+  let countDownTimer: NodeJS.Timeout = null;
 
-  addItem(title: string) {
+  const [currentTime, setCurrentTime] = useState(Date.now())
+
+  const [items, setItems] = useState([])
+
+  const addItem = (title: string) => {
     const item: todoItem = {title, id: Date.now()}
-    this.setState({items: [...this.state.items, item]})
-  }
+    setItems([...items, item])
+  };
 
-  deleteItem(index: number) {
-    const newList = this.state.items.slice(0)
+  const deleteItem = function (index: number) {
+    const newList = items.slice(0)
 
     newList.splice(index, 1);
-    this.setState({items: newList})
-  }
+    setItems(newList)
+  };
 
-  render() {
-    return (
-      <div className={style.container}>
-        <header className={style.header}>
-          <h1>Todo List</h1>
-        </header>
-        <TodoInput addItem={this.addItem.bind(this)}/>
-        <TodoItems items={this.state.items}
-                   onDeleteItem={this.deleteItem.bind(this)}/>
-      </div>
-    );
-  }
+  useEffect(() => {
+    countDownTimer = setInterval(() => {
+      setCurrentTime(Date.now())
+    }, 1000)
+    return () => clearInterval(countDownTimer)
+  })
+
+
+  return (
+    <div className={style.container}>
+      <header className={style.header}>
+        <h1>Todo List</h1>
+        <p>当前时间是： {currentTime}</p>
+      </header>
+      <TodoInput addItem={addItem}/>
+      <TodoItems items={items}
+                 onDeleteItem={deleteItem}/>
+    </div>
+  );
 }
 

@@ -12,8 +12,8 @@
     "build:prod": "webpack --mode=production --node-env=production",
     "watch": "webpack --watch",
     "serve": "webpack serve",
-    "lint": "eslint .",
-    "lint:fix": "eslint . --fix"
+    "lint": "eslint src/**/*.tsx",
+    "lint:fix": "npm run lint --fix"
   },
   "browserslist": {
     "production": [
